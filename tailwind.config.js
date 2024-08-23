@@ -7,6 +7,10 @@ export default {
         sans: ["Inter", "sans-serif"],
         display: ["Manrope", "sans-serif"],
       },
+      colors: {
+        primary: "#35A29F",
+        hover: "#97FEED",
+      },
     },
   },
   plugins: [],
