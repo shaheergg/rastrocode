@@ -72,7 +72,14 @@
                               'group flex gap-x-3 rounded-md py-2 px-3 text-sm font-semibold leading-6',
                             ]"
                           >
-                            {{ item.name }}
+                            <span
+                              class="flex items-center justify-between w-full gap-2"
+                            >
+                              <span>{{ item.name }}</span>
+                              <span v-if="item.name === 'Afiliados'">
+                                <TrophyIcon class="w-4 h-4 text-yellow-300" />
+                              </span>
+                            </span>
                           </a>
                         </li>
                       </ul>
@@ -115,7 +122,14 @@
                       'group flex gap-x-3 rounded-md py-2 px-3 text-sm font-semibold leading-6',
                     ]"
                   >
-                    {{ item.name }}
+                    <span
+                      class="flex items-center justify-between w-full gap-2"
+                    >
+                      <span>{{ item.name }}</span>
+                      <span v-if="item.name === 'Afiliados'">
+                        <TrophyIcon class="w-4 h-4 text-yellow-300" />
+                      </span>
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -220,23 +234,15 @@ import {
 } from "@headlessui/vue";
 import {
   Bars3Icon,
-  CalendarIcon,
   PlusIcon,
-  ChartPieIcon,
-  Cog6ToothIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
   UserIcon,
-  HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 
+import { TrophyIcon } from "@heroicons/vue/24/solid";
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
   { name: "Afiliados", href: "#", current: false },
-  { name: "Histórico", href: "#", current: false },
   { name: "Pedidos", href: "#", current: false },
   { name: "Pagos", href: "#", current: false },
   { name: "Clientes", href: "#", current: false },
