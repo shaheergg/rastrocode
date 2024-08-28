@@ -16,7 +16,12 @@
       </h3>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form
+        @submit.prevent="handleLogin"
+        class="space-y-6"
+        action="#"
+        method="POST"
+      >
         <div>
           <label
             for="email"
@@ -26,6 +31,7 @@
           <div class="mt-2">
             <input
               id="email"
+              v-model="email"
               name="email"
               type="email"
               autocomplete="email"
@@ -51,6 +57,7 @@
           </div>
           <div class="mt-2">
             <input
+              v-model="password"
               id="password"
               name="password"
               type="password"
@@ -75,4 +82,21 @@
 
 <script setup>
 import { RouterLink } from "vue-router";
+import { ref } from "vue";
+import { useAuthStore } from "../store/auth";
+import { useRouter } from "vue-router";
+
+const email = ref("");
+const password = ref("");
+const authStore = useAuthStore();
+const router = useRouter();
+
+const handleLogin = async () => {
+  await authStore.login({ email: email.value, password: password.value });
+  if (authStore.isAuthenticated) {
+    router.push({
+      name: "Dashboard",
+    });
+  }
+};
 </script>

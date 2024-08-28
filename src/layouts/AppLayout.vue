@@ -66,7 +66,7 @@
                           <a
                             :href="item.href"
                             :class="[
-                              item.current
+                              $route.path === item.href
                                 ? 'bg-neutral-700 text-white'
                                 : 'text-neutral-200 hover:bg-neutral-700 hover:text-white',
                               'group flex gap-x-3 rounded-md py-2 px-3 text-sm font-semibold leading-6',
@@ -113,10 +113,10 @@
             <li>
               <ul role="list" class="-mx-2 space-y-1">
                 <li v-for="item in navigation" :key="item.name">
-                  <a
-                    :href="item.href"
+                  <RouterLink
+                    :to="item.href"
                     :class="[
-                      item.current
+                      $route.path === item.href
                         ? 'bg-neutral-700 text-white'
                         : 'text-neutral-200 hover:bg-neutral-700 hover:text-white',
                       'group flex gap-x-3 rounded-md py-2 px-3 text-sm font-semibold leading-6',
@@ -130,7 +130,7 @@
                         <TrophyIcon class="w-4 h-4 text-yellow-300" />
                       </span>
                     </span>
-                  </a>
+                  </RouterLink>
                 </li>
               </ul>
             </li>
@@ -148,13 +148,13 @@
             <h2 class="text-sm font-semibold">CRÉDITOS: {{ 15 }}</h2>
           </div>
           <div>
-            <button
-              type="button"
+            <RouterLink
+              to="/recharge"
               class="flex items-center px-4 py-2 text-xs font-semibold rounded shadow-sm text-neutral-100 bg-primary hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               <PlusIcon class="w-5 h-5 mr-2" aria-hidden="true" />
               Nova Recarga
-            </button>
+            </RouterLink>
           </div>
         </div>
         <button
@@ -175,7 +175,7 @@
                   <span
                     class="ml-4 text-sm font-semibold leading-6 text-neutral-100"
                     aria-hidden="true"
-                    >Tom Cook</span
+                    >{{ authStore?.user?.name }}</span
                   >
                 </span>
               </MenuButton>
@@ -195,14 +195,22 @@
                     :key="item.name"
                     v-slot="{ active }"
                   >
-                    <a
-                      :href="item.href"
+                    <RouterLink
+                      :to="item.href"
+                      v-if="!item.btn"
                       :class="[
                         active ? 'bg-neutral-700' : '',
                         'block px-3 py-1 text-sm leading-6 text-neutral-100',
                       ]"
-                      >{{ item.name }}</a
+                      >{{ item.name }}</RouterLink
                     >
+                    <button
+                      class="'block px-3 py-1 text-sm hover:bg-neutral-700 w-full text-left leading-6 text-neutral-100',"
+                      @click="handleLogout()"
+                      v-else
+                    >
+                      {{ item.name }}
+                    </button>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -240,9 +248,14 @@ import {
 } from "@heroicons/vue/24/outline";
 
 import { TrophyIcon } from "@heroicons/vue/24/solid";
+import { useAuthStore } from "../store/auth";
+import { useRouter } from "vue-router";
+const authStore = useAuthStore();
+const router = useRouter();
+
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Afiliados", href: "#", current: false },
+  { name: "Dashboard", href: "/dashboard", current: true },
+  { name: "Afiliados", href: "/affiliates", current: false },
   { name: "Pedidos", href: "#", current: false },
   { name: "Pagos", href: "#", current: false },
   { name: "Clientes", href: "#", current: false },
@@ -265,8 +278,13 @@ const navigation = [
 
 const userNavigation = [
   { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Sign out", btn: true },
 ];
+
+const handleLogout = () => {
+  authStore.logout();
+  window.location.reload();
+};
 
 const sidebarOpen = ref(false);
 </script>

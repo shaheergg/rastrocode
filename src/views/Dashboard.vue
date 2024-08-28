@@ -29,4 +29,6 @@
 import AppLayout from "../layouts/AppLayout.vue";
 import DashboardStats from "../components/DashboardStats.vue";
 import CreditHistory from "../components/CreditHistory.vue";
+import { baseUrl } from "../config/baseurl";
+console.log(baseUrl);
 </script>
