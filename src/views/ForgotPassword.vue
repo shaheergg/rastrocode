@@ -25,6 +25,7 @@
           >
           <div class="mt-2">
             <input
+              v-model="email"
               id="email"
               name="email"
               type="email"
@@ -36,6 +37,7 @@
 
         <div>
           <button
+            @click="handleSubmit"
             type="submit"
             class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
@@ -47,4 +49,25 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { client } from "../config/axios";
+import { useToast } from "vue-toast-notification";
+
+const email = ref("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const $toast = useToast();
+  try {
+    const response = await client.post("/api/forget-password", {
+      email: email.value,
+    });
+    if (!response.ok) {
+      throw new Error(response?.data?.message);
+    }
+    $toast.success(response.data.message);
+  } catch (error) {
+    $toast.error("An error occurred. Please try again later.");
+  }
+};
+</script>

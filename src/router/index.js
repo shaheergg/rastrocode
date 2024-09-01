@@ -5,7 +5,10 @@ import Dashboard from "../views/Dashboard.vue";
 import { useAuthStore } from "../store/auth";
 import Affiliates from "../views/Affiliates.vue";
 import Recharge from "../views/Recharge.vue";
-
+import Orders from "../views/Orders.vue";
+import ResetPassword from "../views/ResetPassword.vue";
+import Gateway from "../views/Gateway.vue";
+import DadosNf from "../views/DadosNf.vue";
 const routes = [
   {
     path: "/",
@@ -17,6 +20,12 @@ const routes = [
     path: "/forgot-password",
     name: "ForgotPassword",
     component: ForgotPassword,
+    meta: { requiresAuth: false },
+  },
+  {
+    path: "/reset-password/:token",
+    name: "ResetPassword",
+    component: ResetPassword,
     meta: { requiresAuth: false },
   },
   {
@@ -35,6 +44,24 @@ const routes = [
     path: "/recharge",
     name: "Recharge",
     component: Recharge,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: Orders,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/gateway",
+    name: "Gateway",
+    component: Gateway,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/dados-nf",
+    name: "DadosNF",
+    component: DadosNf,
     meta: { requiresAuth: true },
   },
 ];

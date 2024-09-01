@@ -254,25 +254,22 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", current: true },
-  { name: "Afiliados", href: "/affiliates", current: false },
-  { name: "Pedidos", href: "#", current: false },
-  { name: "Pagos", href: "#", current: false },
-  { name: "Clientes", href: "#", current: false },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "Afiliados", href: "/affiliates" },
+  { name: "Pedidos", href: "/orders" },
+  { name: "Pagos", href: "#" },
+  { name: "Clientes", href: "#" },
   {
     name: "Integração",
-    href: "#",
-    current: false,
+    href: "/gateway",
   },
   {
     name: "Dados NFE",
-    href: "#",
-    current: false,
+    href: "/dados-nf",
   },
   {
     name: "Postagem",
     href: "#",
-    current: false,
   },
 ];
 
