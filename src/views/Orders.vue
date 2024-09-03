@@ -227,13 +227,16 @@ const fetchSales = async () => {
 const filterSales = () => {
   if (type.value === "all") {
     filteredSales.value = sales.value;
-  } else if (type.value === "awaited") {
+  } else if (type.value !== "all") {
     filteredSales.value = sales.value?.filter((sale) => sale.status !== "paid");
   }
   // Add more conditions as needed.
 };
 
 onMounted(async () => {
+  if (!["all", "awaited", "posted"].includes(type)) {
+    await router.push({ name: "Orders", params: { type: "all" } });
+  }
   await fetchSales();
   filterSales(); // Apply the initial filter after fetching sales
 });
