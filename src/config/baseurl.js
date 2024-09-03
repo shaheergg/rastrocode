@@ -1,1 +1,1 @@
-export const baseUrl = "https://api-test.rastrocode.net/";
+export const baseUrl = "http://api-test.rastrocode.net/";

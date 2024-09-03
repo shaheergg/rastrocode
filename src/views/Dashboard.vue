@@ -3,7 +3,9 @@
     <div class="space-y-4">
       <div class="flex items-center justify-between">
         <h2 class="text-2xl font-semibold">Dashboard</h2>
-        <button
+        <a
+          href="https://api.whatsapp.com/send?phone=5518981074447&text=Vim%20pelo%20site%20e%20preciso%20de%20suporte"
+          target="_blank"
           class="flex items-center px-4 py-2 text-xs font-semibold text-white transition-all bg-green-500 rounded-full hover:scale-105"
         >
           <svg
@@ -18,7 +20,7 @@
             />
           </svg>
           <span class="ml-2">Support</span>
-        </button>
+        </a>
       </div>
       <DashboardStats />
       <CreditHistory />

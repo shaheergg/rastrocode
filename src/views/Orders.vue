@@ -4,9 +4,20 @@
       <div class="px-4 py-5 space-y-4 sm:p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-lg font-semibold">Todos pedidos</h2>
+            <h2 class="text-lg font-semibold">
+              <span v-if="$route.params.type === 'all'"> Todos </span>
+              <span v-else-if="$route.params.type === 'awaited'">
+                Aguardando
+              </span>
+              <span v-else-if="$route.params.type === 'posted'"> Pagos </span>
+
+              pedidos
+            </h2>
             <p class="text-neutral-400">
-              Veja todos os pedidos PAGOS da sua loja.
+              Veja todos os pedidos
+              <span v-if="$route.params.type === 'posted'">PAGOS</span>
+              <span v-if="$route.params.type === 'awaited'">Aguardando</span>
+              da sua loja.
             </p>
           </div>
           <div>
@@ -128,7 +139,7 @@
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-neutral-800">
-                  <tr v-for="sale in sales" :key="sale?.id">
+                  <tr v-for="sale in filteredSales" :key="sale?.id">
                     <td
                       class="py-4 pl-4 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0"
                     >
@@ -177,10 +188,12 @@
 <script setup>
 import AppLayout from "../layouts/AppLayout.vue";
 import { useToast } from "vue-toast-notification";
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { client } from "../config/axios";
+import { useRoute } from "vue-router";
 
 const isFilter = ref(false);
+const route = useRoute();
 
 const filters = ref({
   startDate: "2024-01-25",
@@ -188,6 +201,8 @@ const filters = ref({
   cliente: "",
 });
 
+const type = ref(route.params.type);
+const filteredSales = ref(null);
 const sales = ref(null);
 const loading = ref(false);
 
@@ -201,15 +216,36 @@ const fetchSales = async () => {
     const data = response.data?.registros;
     sales.value = data;
     $toast.success("Vendas carregadas com sucesso!");
-    loading.value = false;
   } catch (error) {
     $toast.error("Erro ao carregar vendas!");
     console.log(error);
+  } finally {
     loading.value = false;
   }
 };
 
-fetchSales().then(() => {
-  console.log(sales.value);
+const filterSales = () => {
+  if (type.value === "all") {
+    filteredSales.value = sales.value;
+  } else if (type.value === "awaited") {
+    filteredSales.value = sales.value?.filter((sale) => sale.status !== "paid");
+  }
+  // Add more conditions as needed.
+};
+
+onMounted(async () => {
+  await fetchSales();
+  filterSales(); // Apply the initial filter after fetching sales
 });
+
+watch(
+  () => route.params.type,
+  async (newType) => {
+    type.value = newType;
+    if (!sales.value) {
+      await fetchSales();
+    }
+    filterSales(); // Filter sales whenever the type changes
+  }
+);
 </script>

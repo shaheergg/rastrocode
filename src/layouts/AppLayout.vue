@@ -63,8 +63,9 @@
                     <li>
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
-                          <a
-                            :href="item.href"
+                          <RouterLink
+                            :to="item.href"
+                            v-if="!item.children"
                             :class="[
                               $route.path === item.href
                                 ? 'bg-neutral-700 text-white'
@@ -80,7 +81,47 @@
                                 <TrophyIcon class="w-4 h-4 text-yellow-300" />
                               </span>
                             </span>
-                          </a>
+                          </RouterLink>
+                          <Disclosure as="div" v-else v-slot="{ open }">
+                            <DisclosureButton
+                              :class="[
+                                $route.path === item.href
+                                  ? 'bg-neutral-700'
+                                  : 'hover:bg-neutral-700',
+                                'flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-neutral-100',
+                              ]"
+                            >
+                              <ChevronRightIcon
+                                :class="[
+                                  open
+                                    ? 'rotate-90 text-neutral-500'
+                                    : 'text-neutral-400',
+                                  'h-4 w-4 shrink-0',
+                                ]"
+                                aria-hidden="true"
+                              />
+                              {{ item.name }}
+                            </DisclosureButton>
+                            <DisclosurePanel as="ul" class="px-2 mt-1">
+                              <li
+                                v-for="subItem in item.children"
+                                :key="subItem.name"
+                              >
+                                <DisclosureButton as="div">
+                                  <RouterLink
+                                    :class="[
+                                      $route.param === subItem.param
+                                        ? 'bg-neutral-700'
+                                        : 'hover:bg-neutral-700',
+                                      'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-white-100',
+                                    ]"
+                                    :to="subItem.href"
+                                    >{{ subItem.name }}</RouterLink
+                                  ></DisclosureButton
+                                >
+                              </li>
+                            </DisclosurePanel>
+                          </Disclosure>
                         </li>
                       </ul>
                     </li>
@@ -114,6 +155,7 @@
               <ul role="list" class="-mx-2 space-y-1">
                 <li v-for="item in navigation" :key="item.name">
                   <RouterLink
+                    v-if="!item.children"
                     :to="item.href"
                     :class="[
                       $route.path === item.href
@@ -131,6 +173,43 @@
                       </span>
                     </span>
                   </RouterLink>
+                  <Disclosure as="div" v-else v-slot="{ open }">
+                    <DisclosureButton
+                      :class="[
+                        $route.path === item.href
+                          ? 'bg-neutral-700'
+                          : 'hover:bg-neutral-700',
+                        'flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-neutral-100',
+                      ]"
+                    >
+                      <ChevronRightIcon
+                        :class="[
+                          open
+                            ? 'rotate-90 text-neutral-500'
+                            : 'text-neutral-400',
+                          'h-4 w-4 shrink-0',
+                        ]"
+                        aria-hidden="true"
+                      />
+                      {{ item.name }}
+                    </DisclosureButton>
+                    <DisclosurePanel as="ul" class="px-2 mt-1">
+                      <li v-for="subItem in item.children" :key="subItem.name">
+                        <DisclosureButton as="div">
+                          <RouterLink
+                            :class="[
+                              $route.path === subItem.href
+                                ? 'bg-neutral-700'
+                                : 'hover:bg-neutral-700',
+                              'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-white-100',
+                            ]"
+                            :to="subItem.href"
+                            >{{ subItem.name }}</RouterLink
+                          ></DisclosureButton
+                        >
+                      </li>
+                    </DisclosurePanel>
+                  </Disclosure>
                 </li>
               </ul>
             </li>
@@ -143,10 +222,7 @@
       <div
         class="sticky top-0 z-40 flex items-center justify-between w-full h-16 px-4 border-b shadow-sm border-neutral-700 bg-neutral-800 gap-x-4 sm:gap-x-6 sm:px-6 lg:px-8"
       >
-        <div class="flex items-center justify-between flex-1">
-          <div>
-            <h2 class="text-sm font-semibold">CRÉDITOS: {{ 15 }}</h2>
-          </div>
+        <div class="flex items-center justify-end flex-1">
           <div>
             <RouterLink
               to="/recharge"
@@ -247,18 +323,25 @@ import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 
-import { TrophyIcon } from "@heroicons/vue/24/solid";
+import { TrophyIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 import { useAuthStore } from "../store/auth";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+
 const authStore = useAuthStore();
 const router = useRouter();
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Afiliados", href: "/affiliates" },
-  { name: "Pedidos", href: "/orders" },
-  { name: "Pagos", href: "#" },
-  { name: "Clientes", href: "#" },
+  {
+    name: "Pedidos",
+    children: [
+      { name: "Todos", href: "/orders/all", param: "all" },
+      { name: "Aguardando envio", href: "/orders/awaited", param: "awaited" },
+      { name: "Postados", href: "/orders/posted", param: "posted" },
+    ],
+  },
   {
     name: "Integração",
     href: "/gateway",

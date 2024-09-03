@@ -47,7 +47,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/orders",
+    path: "/orders/:type",
     name: "Orders",
     component: Orders,
     meta: { requiresAuth: true },
