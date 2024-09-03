@@ -190,7 +190,7 @@ import AppLayout from "../layouts/AppLayout.vue";
 import { useToast } from "vue-toast-notification";
 import { ref, onMounted, watch } from "vue";
 import { client } from "../config/axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const isFilter = ref(false);
 const route = useRoute();
@@ -205,6 +205,7 @@ const type = ref(route.params.type);
 const filteredSales = ref(null);
 const sales = ref(null);
 const loading = ref(false);
+const router = useRouter();
 
 const fetchSales = async () => {
   const $toast = useToast();

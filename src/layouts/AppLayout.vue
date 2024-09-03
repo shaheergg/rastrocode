@@ -350,10 +350,6 @@ const navigation = [
     name: "Dados NFE",
     href: "/dados-nf",
   },
-  {
-    name: "Postagem",
-    href: "#",
-  },
 ];
 
 const userNavigation = [
