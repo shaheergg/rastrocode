@@ -9,7 +9,7 @@
         alt="Your Company"
       />
       <h2 class="mt-10 text-2xl font-bold text-center text-white">
-        Reset Password
+        Redefinir senha
       </h2>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

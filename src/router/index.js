@@ -9,12 +9,23 @@ import Orders from "../views/Orders.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Gateway from "../views/Gateway.vue";
 import DadosNf from "../views/DadosNf.vue";
+import Postagem from "../views/Postagem.vue";
+import Register from "../views/Register.vue";
+
 const routes = [
   {
     path: "/",
     name: "Login",
     component: Login,
     meta: { requiresAuth: false },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/forgot-password",
@@ -62,6 +73,12 @@ const routes = [
     path: "/dados-nf",
     name: "DadosNF",
     component: DadosNf,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/postagem",
+    name: "Postagem",
+    component: Postagem,
     meta: { requiresAuth: true },
   },
 ];

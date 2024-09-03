@@ -3,15 +3,11 @@
     class="flex flex-col justify-center flex-1 min-h-screen px-6 py-12 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img
-        class="w-auto h-10 mx-auto"
-        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-        alt="Your Company"
-      />
+      <Logo />
       <h3 class="mt-10 text-sm text-center text-white">
-        Forgot your password? No problem. Just let us know your email address
-        and we will email you a password reset link that will allow you to
-        choose a new one.
+        Esqueceu sua senha? Sem problemas. Basta nos informar seu endereço de
+        e-mail e enviaremos por e-mail um link de redefinição de senha que
+        permitirá que você escolha uma nova.
       </h3>
     </div>
 
@@ -53,6 +49,7 @@
 import { ref } from "vue";
 import { client } from "../config/axios";
 import { useToast } from "vue-toast-notification";
+import Logo from "../components/Logo.vue";
 
 const email = ref("");
 const handleSubmit = async (e) => {

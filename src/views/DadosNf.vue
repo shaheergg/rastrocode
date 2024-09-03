@@ -172,13 +172,16 @@
                 </option>
               </select>
             </div>
-            <div>
+            <div class="flex items-center justify-between">
               <button
                 type="submit"
                 class="px-4 py-2 text-white rounded-md bg-primary"
               >
                 Atualizar informações da empresa
               </button>
+              <a href="#" class="px-4 py-2 text-white rounded-md bg-primary">
+                VER EXEMPLO DE NOTA FISCAL
+              </a>
             </div>
           </form>
         </div>

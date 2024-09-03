@@ -52,11 +52,7 @@
                 class="flex flex-col px-6 pb-4 overflow-y-auto bg-neutral-800 grow gap-y-5"
               >
                 <div class="flex items-center h-16 shrink-0">
-                  <img
-                    class="w-auto h-8"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                    alt="Your Company"
-                  />
+                  <Logo />
                 </div>
                 <nav class="flex flex-col flex-1">
                   <ul role="list" class="flex flex-col flex-1 gap-y-7">
@@ -143,11 +139,7 @@
         class="flex flex-col px-6 pb-4 overflow-y-auto bg-neutral-800 grow gap-y-5"
       >
         <div class="flex items-center h-16 shrink-0">
-          <img
-            class="w-auto h-8"
-            src="https://tailwindui.com/img/logos/mark.svg?color=white"
-            alt="Your Company"
-          />
+          <Logo />
         </div>
         <nav class="flex flex-col flex-1">
           <ul role="list" class="flex flex-col flex-1 gap-y-7">
@@ -327,6 +319,7 @@ import { TrophyIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 import { useAuthStore } from "../store/auth";
 import { RouterLink, useRouter } from "vue-router";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import Logo from "../components/Logo.vue";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -349,6 +342,10 @@ const navigation = [
   {
     name: "Dados NFE",
     href: "/dados-nf",
+  },
+  {
+    name: "Postagem",
+    href: "/postagem",
   },
 ];
 
