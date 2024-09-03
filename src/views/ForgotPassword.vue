@@ -17,8 +17,8 @@
           <label
             for="email"
             class="block text-sm font-medium leading-6 text-white"
-            >Email address</label
-          >
+            >Endereço de email
+          </label>
           <div class="mt-2">
             <input
               v-model="email"
@@ -37,7 +37,7 @@
             type="submit"
             class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            Email Password reset link
+            Link de redefinição de senha de e-mail
           </button>
         </div>
       </form>

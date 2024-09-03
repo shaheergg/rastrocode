@@ -23,8 +23,8 @@
           <label
             for="email"
             class="block text-sm font-medium leading-6 text-white"
-            >Email address</label
-          >
+            >Endereço de email
+          </label>
           <div class="mt-2">
             <input
               id="email"
@@ -42,8 +42,8 @@
             <label
               for="password"
               class="block text-sm font-medium leading-6 text-white"
-              >New Password</label
-            >
+              >Nova Senha
+            </label>
             <div class="text-sm">
               <RouterLink
                 to="/"
@@ -68,8 +68,8 @@
             <label
               for="password"
               class="block text-sm font-medium leading-6 text-white"
-              >Confirm Password</label
-            >
+              >Confirme sua senha
+            </label>
           </div>
           <div class="mt-2">
             <input
@@ -88,7 +88,7 @@
             type="submit"
             class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            Reset Password
+            Redefinir senha
           </button>
         </div>
       </form>

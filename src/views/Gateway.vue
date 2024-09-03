@@ -7,17 +7,7 @@
           Realize as configurações abaixo para integrar seu gateway de pagamento
           ao nosso sistema..
         </p>
-        <div class="space-y-4">
-          <label class="text-sm" for="">Tipo Integração *</label>
-          <select
-            class="w-full px-4 py-2 border-0 rounded-md bg-neutral-700 text-neutral-100"
-            v-model="integrationType"
-          >
-            <option value="gateway">Gateway</option>
-            <option value="checkout">Checkout</option>
-          </select>
-        </div>
-        <div v-if="integrationType === 'gateway'" class="space-y-4">
+        <div v-if="$route.params.type === 'gateway'" class="space-y-4">
           <div class="space-y-4">
             <label class="text-sm" for="">Gateway *</label>
             <select
@@ -78,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div v-else class="space-y-4">
+        <div v-else-if="$route.params.type === 'checkout'" class="space-y-4">
           <div class="p-4 space-y-4 bg-red-100 rounded-md">
             <h2 class="text-lg font-semibold text-red-700">Vega</h2>
             <img src="https://rastrocode.net/img/vega.png" alt="" />
@@ -128,10 +118,10 @@
 <script setup>
 import AppLayout from "../layouts/AppLayout.vue";
 import { ref } from "vue";
-const integrationType = ref("gateway");
 import { client } from "../config/axios";
 import { useToast } from "vue-toast-notification";
 import { ClipboardDocumentIcon } from "@heroicons/vue/24/solid";
+import { useRoute } from "vue-router";
 
 const gateways = [
   "CashTime",
@@ -151,7 +141,7 @@ const gateways = [
 const gateway = ref(gateways[0]);
 const publicKey = ref("");
 const secretKey = ref("");
-
+const route = useRoute();
 const handleFormSubmit = async (e) => {
   e.preventDefault();
   if (!publicKey.value || !secretKey.value) {
@@ -165,7 +155,7 @@ const handleFormSubmit = async (e) => {
     chavePublica: publicKey.value,
     companyId: "123",
     chave: "123",
-    tipo: integrationType.value,
+    tipo: route.params.type,
   };
   try {
     const response = await client.post("/api/integration", data);

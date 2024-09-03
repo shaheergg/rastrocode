@@ -18,7 +18,7 @@
           <label
             for="name"
             class="block text-sm font-medium leading-6 text-white"
-            >Name</label
+            >Nome</label
           >
           <div class="mt-2">
             <input
@@ -37,8 +37,8 @@
           <label
             for="email"
             class="block text-sm font-medium leading-6 text-white"
-            >Email address</label
-          >
+            >Endereço de email
+          </label>
           <div class="mt-2">
             <input
               id="email"
@@ -76,8 +76,8 @@
           <label
             for="username"
             class="block text-sm font-medium leading-6 text-white"
-            >Username</label
-          >
+            >Nome de usuário
+          </label>
           <div class="mt-2">
             <input
               id="username"
@@ -114,7 +114,7 @@
           <label
             for="password"
             class="block text-sm font-medium leading-6 text-white"
-            >Password</label
+            >Senha</label
           >
           <div class="mt-2">
             <input
@@ -134,8 +134,8 @@
           <label
             for="password_confirmation"
             class="block text-sm font-medium leading-6 text-white"
-            >Confirm Password</label
-          >
+            >Confirme sua senha
+          </label>
           <div class="mt-2">
             <input
               v-model="passwordConfirmation"
@@ -154,7 +154,7 @@
             type="submit"
             class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            Register
+            Registrei
           </button>
         </div>
       </form>

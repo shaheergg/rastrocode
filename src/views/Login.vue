@@ -22,8 +22,8 @@
           <label
             for="email"
             class="block text-sm font-medium leading-6 text-white"
-            >Email address</label
-          >
+            >Endereço de email
+          </label>
           <div class="mt-2">
             <input
               id="email"
@@ -41,14 +41,14 @@
             <label
               for="password"
               class="block text-sm font-medium leading-6 text-white"
-              >Password</label
+              >Senha</label
             >
             <div class="text-sm">
               <RouterLink
                 to="/forgot-password"
                 class="font-semibold text-hover hover:text-hover/70"
-                >Forgot password?</RouterLink
-              >
+                >Esqueceu sua senha?
+              </RouterLink>
             </div>
           </div>
           <div class="mt-2">
@@ -68,7 +68,7 @@
             type="submit"
             class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            Sign in
+            Entrar
           </button>
         </div>
       </form>

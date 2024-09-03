@@ -337,7 +337,13 @@ const navigation = [
   },
   {
     name: "Integração",
-    href: "/gateway",
+    children: [
+      {
+        name: "Checkout",
+        href: "/integration/checkout",
+      },
+      { name: "Gateway", href: "/integration/gateway" },
+    ],
   },
   {
     name: "Dados NFE",

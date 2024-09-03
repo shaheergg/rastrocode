@@ -64,7 +64,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/gateway",
+    path: "/integration/:type",
     name: "Gateway",
     component: Gateway,
     meta: { requiresAuth: true },
