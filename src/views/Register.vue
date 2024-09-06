@@ -198,7 +198,9 @@ const registerUser = async () => {
       password: password.value,
       password_confirmation: passwordConfirmation.value,
     });
-
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     console.log("Registration successful:", response.data);
   } catch (error) {
     console.error(
