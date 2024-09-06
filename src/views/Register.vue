@@ -182,13 +182,25 @@ const router = useRouter();
 
 // Function to handle the POST request
 const registerUser = async () => {
-  // validate
-  if (password.value !== passwordConfirmation.value) {
-    console.error("Passwords do not match");
-    return;
-  }
-
   try {
+    // Validate input
+    if (
+      !name.value ||
+      !email.value ||
+      !wpp.value ||
+      !username.value ||
+      !telefone.value ||
+      !password.value ||
+      !passwordConfirmation.value
+    ) {
+      throw new Error("All fields are required");
+    }
+
+    if (password.value !== passwordConfirmation.value) {
+      throw new Error("Passwords do not match");
+    }
+
+    // Make API request
     const response = await axios.post(baseUrl + "/api/register", {
       name: name.value,
       email: email.value,
@@ -198,27 +210,43 @@ const registerUser = async () => {
       password: password.value,
       password_confirmation: passwordConfirmation.value,
     });
-    if (!response.ok) {
-      throw new Error(response.statusText);
+
+    // Check response status
+    if (response.status !== 200 && response.status !== 201) {
+      throw new Error(`Unexpected response status: ${response.status}`);
     }
+
     console.log("Registration successful:", response.data);
+    return response.data;
   } catch (error) {
-    console.error(
-      "Error during registration:",
-      error.response?.data || error.message
-    );
+    // Handle different types of errors
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error("Server responded with an error:", error.response.data);
+      throw new Error(error.response.data.message || "Server error occurred");
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("No response received from server");
+      throw new Error(
+        "No response from server. Please check your internet connection."
+      );
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error("Error during registration:", error.message);
+      throw error;
+    }
   }
 };
-
 const handleRegister = async () => {
   const $toast = useToast();
   try {
     await registerUser();
     $toast.success("Usuário cadastrado com sucesso!");
+    router.push("/");
   } catch (err) {
-    $toast.error("Erro ao registrar usuário");
+    $toast.error(err.message);
     return;
   }
-  router.push("/");
 };
 </script>
