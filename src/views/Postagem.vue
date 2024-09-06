@@ -5,10 +5,16 @@
         <div class="py-10 bg-neutral-800">
           <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
-              <div class="sm:flex-auto">
+              <div class="sm:flex-auto flex items-center justify-between">
                 <h1 class="text-base font-semibold leading-6 text-white">
                   Postagem
                 </h1>
+                <RouterLink
+                  to="/postagem/configure"
+                  class="px-4 py-2 rounded-md bg-primary"
+                >
+                  Configuração de Postagem
+                </RouterLink>
               </div>
             </div>
             <div class="flow-root mt-8">
@@ -90,6 +96,7 @@
 import { ref } from "vue";
 import { client } from "../config/axios";
 import AppLayout from "../layouts/AppLayout.vue";
+import { RouterLink } from "vue-router";
 const loading = ref(false);
 const posts = ref([]);
 

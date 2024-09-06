@@ -11,6 +11,7 @@ import Gateway from "../views/Gateway.vue";
 import DadosNf from "../views/DadosNf.vue";
 import Postagem from "../views/Postagem.vue";
 import Register from "../views/Register.vue";
+import ConfigurePost from "../views/ConfigurePost.vue";
 
 const routes = [
   {
@@ -80,6 +81,14 @@ const routes = [
     name: "Postagem",
     component: Postagem,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/postagem/configure",
+    name: "ConfigurePost",
+    component: ConfigurePost,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
