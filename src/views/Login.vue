@@ -82,6 +82,7 @@ import { ref } from "vue";
 import { useAuthStore } from "../store/auth";
 import { useRouter } from "vue-router";
 import Logo from "../components/Logo.vue";
+import { useToast } from "vue-toast-notification";
 
 const email = ref("");
 const password = ref("");
@@ -89,7 +90,13 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const handleLogin = async () => {
-  await authStore.login({ email: email.value, password: password.value });
+  const $toast = useToast();
+  try {
+    await authStore.login({ email: email.value, password: password.value });
+  } catch (error) {
+    $toast.error(error?.message || "Erro ao fazer login");
+  }
+
   if (authStore.isAuthenticated) {
     router.push({
       name: "Dashboard",
